@@ -34,17 +34,36 @@ in {
     sha256 = "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=";
   }).python315;
 
-  # --- Google Cloud SDK 570.0.0 (with enterprise-certificate-proxy & gke-gcloud-auth-plugin) ---
+  # --- Google Cloud SDK 570.0.0 (with all extra components) ---
   google-cloud-sdk = let
     pkgs' = fetchNixpkgs {
       url = "https://github.com/NixOS/nixpkgs/archive/241313f4e8e508cb9b13278c2b0fa25b9ca27163.tar.gz";
       sha256 = "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=";
     };
     gcp = pkgs'.google-cloud-sdk;
-  in gcp.withExtraComponents [
-    gcp.components.enterprise-certificate-proxy
-    gcp.components.gke-gcloud-auth-plugin
-  ];
+  in gcp.withExtraComponents (with gcp.components; [
+    enterprise-certificate-proxy
+    gke-gcloud-auth-plugin
+    docker-credential-gcr
+    kubectl
+    kubectl-oidc
+    skaffold
+    kustomize
+    minikube
+    cloud-sql-proxy
+    bq
+    gsutil
+    cbt
+    spanner-cli
+    pubsub-emulator
+    cloud-datastore-emulator
+    cloud-firestore-emulator
+    alpha
+    beta
+    app-engine-go
+    app-engine-python
+    app-engine-java
+  ]);
 
   # --- VS Code (fix postPatch chmod path on macOS) ---
   vscode = prev.vscode.overrideAttrs (oldAttrs: {
