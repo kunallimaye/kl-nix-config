@@ -32,7 +32,7 @@ update:
 ## clean-cache  : Collect garbage and remove old Nix store generations to free disk space
 clean-cache:
 	@echo "🧹 Cleaning unused Nix store paths and old generations..."
-	$(NIX_BIN) collect-garbage -d
+	$(dir $(NIX_BIN))nix-collect-garbage -d
 	$(NIX_BIN) store optimise
 
 ## help          : Print available commands
