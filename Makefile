@@ -29,10 +29,13 @@ update:
 	@echo "🔄 Updating flake repository lockfile indexes..."
 	$(NIX_BIN) flake update
 
-## clean-cache  : Collect garbage and remove old Nix store generations to free disk space
+## clean-cache  : Collect garbage, clear evaluation caches, and optimize Nix store space
 clean-cache:
 	@echo "🧹 Cleaning unused Nix store paths and old generations..."
 	$(dir $(NIX_BIN))nix-collect-garbage -d
+	@echo "🗑️ Clearing ~/.cache/nix evaluation and tarball cache..."
+	rm -rf ~/.cache/nix
+	@echo "⚡ Optimizing Nix store..."
 	$(NIX_BIN) store optimise
 
 ## help          : Print available commands
