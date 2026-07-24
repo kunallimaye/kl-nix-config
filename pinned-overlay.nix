@@ -53,16 +53,16 @@ in {
     cloud-sql-proxy
     bq
     gsutil
-    cbt
+    # cbt
     spanner-cli
     pubsub-emulator
     cloud-datastore-emulator
     cloud-firestore-emulator
     alpha
     beta
-    app-engine-go
-    app-engine-python
-    app-engine-java
+    # app-engine-go
+    # app-engine-python
+    # app-engine-java
   ]);
 
   # --- VS Code (fix postPatch chmod path on macOS) ---
